@@ -14,7 +14,7 @@ def fetch_individual_product_info(product_url): # Devolve dicionario da caracter
     product_page_soup = BeautifulSoup(product_page.text, "lxml")
     name = product_page_soup.find("h1", class_="title").text
 
-    # preço é exibido como "$x.xxx,cc" onde c sao centavos - para adequadamente transformar o preço num float removemos o préfixo e a vírgula
+    # preço é exibido como "$x,xxx.cc" onde c sao centavos - para adequadamente transformar o preço num float removemos o préfixo e a vírgula
     price = float((product_page_soup.find("span", class_="price theme-money").text).removeprefix("$").replace(",",""))
 
     reviews = product_page_soup.find_all("div",class_="stamped-review")
