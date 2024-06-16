@@ -1,3 +1,4 @@
+"""Responsavel para ripar caracteristicas de cada produto e suas avaliacoes """
 import requests
 from bs4 import BeautifulSoup
 from multiprocessing import Pool
@@ -8,7 +9,7 @@ from multiprocessing import Pool
 # Caracteristicas: Nome, preço, avaliação, numero de avaliacoes, conteúdo escrito da avaliacoes
 # depois de coletar todas a caracteristicas podemos armazenar estas informacoes num dicionario onde a chave e o nome do produto
 
-def fetch_individual_product_info(product_url):
+def fetch_individual_product_info(product_url): # Devolve dicionario da caracteristicas de cada produto
     product_page = requests.get(product_url)
     product_page_soup = BeautifulSoup(product_page.text, "lxml")
     name = product_page_soup.find("h1", class_="title").text
@@ -37,7 +38,7 @@ def fetch_individual_product_info(product_url):
             review_content.append(content) # aramzenamos o todas as avaliacoes em uma lista
     return {'name':name,'price':price,'rating':rating,'# reviews': num_reviews,'review content':review_content}
 
-def collect_all_product_info(default_url): # temos como parametro a url basica do site
+def collect_all_product_info(default_url): # Devolve Lista de Listas, cada um contem todo produto de cada pagina
     page_num = 1
     all_product_info = []
     while True:
