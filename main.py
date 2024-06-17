@@ -1,6 +1,5 @@
 from webscraping import collect_all_product_info
-from insight_AI import coletar_amostra
-from insight_quantitativo import generate_feedback
+from insight_AI import coletar_amostra, generate_feedback
 DEFAULT_TEQUILA_PAGE_URL = "https://sipwhiskey.com/collections/rye-whiskey?page="
 
 if __name__ == "__main__":
