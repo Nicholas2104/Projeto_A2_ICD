@@ -3,7 +3,7 @@ def coletar_amostra(all_product_info): # toma como parametro as informacoes dos 
     SAMPLE_LIMIT = 6
     well_rated_samples_taken = 0 # contagem de produtos bem avaliados tomados na amostra
     poorly_rated_samples_taken = 0 # contagem de produtos mal avaliados tomados na amostra
-    review_sample = ""
+    review_sample = []
 
     half_sample_limit = SAMPLE_LIMIT//2 # cada classificacao de amostra de ter numero de produtos amostrados iguais
     for each_page in all_product_info: # iteramos sobre cada produto de cada pagina do site
@@ -15,10 +15,10 @@ def coletar_amostra(all_product_info): # toma como parametro as informacoes dos 
                 # e dependo da classificacao itermaos a contagem respectiva
                 if rating > 4 and well_rated_samples_taken < half_sample_limit: 
                     for each_review in review_content:
-                        review_sample += f"{each_review}\n"
+                        review_sample.append( f"{each_review}")
                     well_rated_samples_taken +=1
                 elif rating <=4 and poorly_rated_samples_taken < half_sample_limit:
                     for each_review in review_content:
-                        review_sample += f"{each_review}\n"
+                        review_sample.append( f"{each_review}")
                     poorly_rated_samples_taken +=1
     return review_sample # finalmente devolvemos o string amostral
