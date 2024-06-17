@@ -22,3 +22,28 @@ def coletar_amostra(all_product_info): # toma como parametro as informacoes dos 
                         review_sample += f"{each_review}\n"
                     poorly_rated_samples_taken +=1
     return review_sample # finalmente devolvemos o string amostral
+
+"""Utiliza Chat-GPT para devolver uma sintese de possiveis problemas e melhorias para"""
+from openai import OpenAI
+
+# constructing client object
+#BUENO, insira a chave aqui em baixo
+OPEN_AI_KEY = ""
+client = OpenAI(api_key=OPEN_AI_KEY)
+
+prompt = []
+#Produz um insight sobre os produtos
+def generate_feedback(review_sample, max_reponse_tokens=1000, model="gpt-3.5-turbo-0125"):
+    user_query = f'''You are a whiskey connoisseur tasked with providing comprehensive feedback of a series of product reviews for different brands of rye whiskeys. Your goal is to summarize the main characteristics, strengths, and weaknesses of the
+products in general, offer an overall assessment of the quality of the products reviewed, provide suggestions for improvement based on customer reviews, and identify
+general areas for improvement across the product category. Don't make a feedback for every review, instead give a general feedback. Separete your asnwer in two categories: pros and cons. Provided information: {review_sample}'''
+    # save user prompts so model remembers out ocnversation while session is running (*)
+    prompt.append({"role":"user","content":user_query})
+    # query the model by creating assistant reponse
+    assistant_response = client.chat.completions.create(
+        model=model,
+        messages=prompt,
+        max_tokens=max_reponse_tokens,
+        temperature=0)
+    assistant_response_content = assistant_response.choices[0].message.content
+    return assistant_response_content
