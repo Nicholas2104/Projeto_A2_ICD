@@ -1,1 +1,1 @@
-"""Utiliza insight AI e webscraping para criar uma tabela csv"""
+"""Utiliza fórmulas matemáticas para calcular características quantitativas"""
