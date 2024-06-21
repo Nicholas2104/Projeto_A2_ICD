@@ -47,13 +47,6 @@ def fetch_individual_product_info(product_url): # Devolve dicionário da caracte
             body = (each_review.find("div", class_="stamped-review-body").find(class_="stamped-review-content-body").text).strip() # achamos também o conteúdo escrito da avaliação
             content = f"{header}: {body}"
             review_content.append(content) # armazenamos todas as avaliações em uma lista
-    print({'name':name,
-            'price':price,
-            'rating':rating,
-            'total reviews': total_reviews,
-            '# positive reviews':positive_review_count,
-            '# negative reviews':negative_review_count,
-            'review content':review_content})
     return {'name':name,
             'price':price,
             'rating':rating,
@@ -79,5 +72,5 @@ def collect_all_product_info(default_url): # Devolve Lista de Listas, cada uma c
                 product_urls.append(product_url)  
             with Pool() as pool:
                 all_product_info.append(pool.map(fetch_individual_product_info,product_urls)) # para agilizar a coleta da página processamos em paralelo a coleta de cada produto
-        page_num+=800 # seguimos para a próxima página
+        page_num+=1 # seguimos para a próxima página
     return all_product_info
