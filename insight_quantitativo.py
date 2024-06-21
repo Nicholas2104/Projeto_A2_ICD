@@ -7,13 +7,13 @@ import pandas as pd
 #Como primeira característica extra, temos uma nova coluna "custo benefício"
 #Decidimos criar essa coluna pois é um indicador bastante influente na compra de um produto
 def custo_beneficio(tabela):
-    tabela["custo-benefício"] = tabela["rating"]/tabela["price"]
+    tabela["custo benefício"] = tabela["rating"]/tabela["price"]
     return tabela
 
 #Como segunda e terceira características, decidimos contar a quantidade de Reviews positivos e negativos
 #Definimos uma nota maior ou igual a 5 como positiva, enquanto o restante é negativo
 def reviews_pos_neg(tabela):
-    tabela["reviews positivos"] = tabela.apply(lambda linha: (linha["rating"]>=5)*linha["# reviews"],axis=1)
+    tabela["reviews positivos"] = tabela.apply(lambda linha: (linha["rating"]>4)*linha["# reviews"],axis=1)
     tabela["reviews negativos"] = tabela["# reviews"]-tabela["reviews positivos"]
     return tabela
 
@@ -21,19 +21,23 @@ def reviews_pos_neg(tabela):
 #A probabilidade de satisfação é um indicador que "suaviza" o peso das avaliações de produtos com poucos reviews
 #Produtos que tem muitas avalliações serão pouco afetados por essa função, enquanto produtos com poucas terão seus pesos suavizados
 def prob_satisfacao(tabela):
-    tabela["chance de gostar"] = (tabela["reviews positivos"]+1)/(tabela["reviews negativos"]+1)
+    tabela["Consumer Satisfaction ratio"] = (tabela["reviews positivos"]+1)/(tabela["reviews negativos"]+1)
     return tabela
 
 #Por fim, adicionamos uma coluna com uma análise qualitativa do produto, feita pela API da OpenAI
 def adiciona_IA(tabela,ai_feedback):
-    tabela["Review feito por IA"] = ai_feedback
+    tabela["AI Feedback"] = ai_feedback
     return tabela
 
 #Finalizamos criando uma tabela com os dados dos produtos
 def criar_tabela(all_product_info, ai_feedback):
-    tabela = pd.DataFrame(all_product_info)
+    headers = ['name','price','rating','# reviews','review content']
+    tabela = pd.DataFrame(columns=headers)
+    for page in all_product_info:
+        for web_product_info in page:
+            for characteristic, value in web_product_info.items():
+                pass
     # tabela = custo_beneficio(tabela)
     # tabela = reviews_pos_neg(tabela)
     # tabela = prob_satisfacao(tabela)
-    # tabela = adiciona_IA_feedback(tabela,ai_feedback)
     return tabela
