@@ -17,18 +17,29 @@ def fetch_individual_product_info(product_url): # Devolve dicionário da caracte
     # preço é exibido como "$x,xxx.cc" onde c sao centavos - para adequadamente transformar o preço num float removemos o préfixo e a vírgula
     price = float((product_page_soup.find("span", class_="price theme-money").text).removeprefix("$").replace(",",""))
 
-    reviews = product_page_soup.find_all("div",class_="stamped-review")
+    reviews = product_page_soup.find_all("div",class_="stamped-review") # contem conteudo da avaliacoes
+    review_summary = product_page_soup.find_all("div",class_="summary-rating") # contem sumario estatistico da avaliacoes
     if len(reviews) == 0: # Se não existir avaliação, associamos valores default para as características do produto
         rating = "none"
-        num_reviews = "none"
+        total_reviews = "none"
+        positive_review_count = "none"
+        negative_review_count = "none"
         review_content = "none"
     else:
         review_content = []
         rating = float(product_page_soup.find("span",class_="stamped-summary-text-1").text)
-
-        # número de avaliações eh armazenada como o texto padrão "Based on X reviews" - assim para poder adequadamente 
-        # transformar essa variável num inteiro selecionamos apenas o X dessa string
-        num_reviews = int((product_page_soup.find("span",class_="stamped-summary-caption stamped-summary-caption-2").find("span").text).split(" ")[2])
+        # para coletar o numero de avaliacoes positivas, negativas e total, olhamos para o sumario quantitativo das avaliacoes
+        total_reviews = 0
+        positive_review_count = 0
+        negative_review_count = 0
+        for index , each_summary in enumerate(review_summary):
+            # consideramos toda avaliacao maior o igual a 4 positivo
+            if index <= 1: # pagina ordena contagem em ordem decresencte 5 estrelas , 4 estrelas ...
+                positive_review_count += int(each_summary['data-count'])
+            # menor que quatro sao negativos
+            else:
+                negative_review_count += int(each_summary['data-count'])
+        total_reviews += (positive_review_count + negative_review_count)
 
         # para executar uma análise qualitativa dos dados precisamos isolar o conteúdo escrito de cada avaliação
         for each_review in reviews:
@@ -36,7 +47,13 @@ def fetch_individual_product_info(product_url): # Devolve dicionário da caracte
             body = (each_review.find("div", class_="stamped-review-body").find(class_="stamped-review-content-body").text).strip() # achamos também o conteúdo escrito da avaliação
             content = f"{header}: {body}"
             review_content.append(content) # armazenamos todas as avaliações em uma lista
-    return {'name':name,'price':price,'rating':rating,'# reviews': num_reviews,'review content':review_content}
+    return {'name':name,
+            'price':price,
+            'rating':rating,
+            'total reviews': total_reviews,
+            'total positive reviews':positive_review_count,
+            'total negative reviews':negative_review_count,
+            'review content':review_content}
 
 def collect_all_product_info(default_url): # Devolve Lista de Listas, cada uma contém todos os produto de cada página
     page_num = 1
@@ -55,5 +72,5 @@ def collect_all_product_info(default_url): # Devolve Lista de Listas, cada uma c
                 product_urls.append(product_url)  
             with Pool() as pool:
                 all_product_info.append(pool.map(fetch_individual_product_info,product_urls)) # para agilizar a coleta da página processamos em paralelo a coleta de cada produto
-        page_num+=1 # seguimos para a próxima página
+        page_num+=80 # seguimos para a próxima página
     return all_product_info
