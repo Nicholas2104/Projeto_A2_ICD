@@ -33,3 +33,12 @@ def prob_satisfacao():
 def adiciona_IA():
     tabela["Review feito por IA"] = assistant_response_content
     return tabela
+
+#Finalizamos criando uma tabela com os dados dos produtos
+def criar_tabela(all_product_info, ai_feedback):
+    tabela = pd.DataFrame(all_product_info)
+    # tabela = custo_beneficio(tabela)
+    # tabela = reviews_pos_neg(tabela)
+    # tabela = prob_satisfacao(tabela)
+    # tabela = adiciona_IA_feedback(tabela,ai_feedback)
+    return tabela
