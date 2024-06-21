@@ -1,6 +1,5 @@
 """Módulo para criar insights quantitativos e criar uma tabela com os dados coletados"""
 import pandas as pd
-import openpyxl as opyxl
 #Precisamos criar uma tabela que contenha os dados coletados no webscrapping e o review gerado pela inteligência artificial
 #Além disso, vamos também características novas a partir dos dados que temos
 
@@ -35,5 +34,5 @@ def criar_tabela(all_product_info, ai_feedback):
             consumer_satisfaction = consumer_satisfaction_calc(positive_reviews,total_reviews)
 
             tabela.loc[len(tabela)] = WS_values+[cost_benfit,consumer_satisfaction,""]
-    tabela.loc[0,'AI Feedback'] = ai_feedback
+    #tabela.loc[0,'AI Feedback'] = ai_feedback
     return tabela

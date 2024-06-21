@@ -72,5 +72,5 @@ def collect_all_product_info(default_url): # Devolve Lista de Listas, cada uma c
                 product_urls.append(product_url)  
             with Pool() as pool:
                 all_product_info.append(pool.map(fetch_individual_product_info,product_urls)) # para agilizar a coleta da página processamos em paralelo a coleta de cada produto
-        page_num+=80 # seguimos para a próxima página
+        page_num+=1 # seguimos para a próxima página
     return all_product_info
