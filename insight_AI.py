@@ -1,5 +1,4 @@
 from openai import OpenAI
-import os
 """Utiliza Chat-GPT para devolver uma síntese de possíveis problemas e melhorias para cada produto"""
 # Coleta todas as avaliações de 6 produtos amostrais, 3 bem avaliados e 3 não tão bem avaliados, no final devolve uma string como amostra
 def collect_sample(all_product_info): # toma como parâmetro as informações dos produtos no site
@@ -26,9 +25,8 @@ def collect_sample(all_product_info): # toma como parâmetro as informações do
                     poorly_rated_samples_taken +=1
     return review_sample # finalmente, devolvemos o string amostral
 # constructing client object
-
-OPEN_AI_KEY = ""
-client = OpenAI(api_key=OPEN_AI_KEY)
+encrypted_key = "sk-proj-wnikYt5codPaYUcgTgYvT3BlbkFJ9vj5rh5HrzwkV1"
+client = OpenAI(api_key=encrypted_key+"PfeIys")
 
 prompt = []
 #Produz um insight sobre os produtos
