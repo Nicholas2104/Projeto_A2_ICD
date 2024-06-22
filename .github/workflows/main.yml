@@ -1,0 +1,13 @@
+name: Key Access
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Use secret in a script
+      run: echo "My secret is ${{ secrets.API_KEY }}"
