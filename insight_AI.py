@@ -1,6 +1,5 @@
 from openai import OpenAI
 import os
-from dotenv import load_dotenv
 
 """Utiliza Chat-GPT para devolver uma síntese de possíveis problemas e melhorias para cada produto"""
 # Coleta todas as avaliações de 6 produtos amostrais, 3 bem avaliados e 3 não tão bem avaliados, no final devolve uma string como amostra
@@ -30,8 +29,8 @@ def collect_sample(all_product_info): # toma como parâmetro as informações do
 # constructing client object
 
 #Para podermos usar a nossa chave da API da OpenAI, usamos um documento .env para armazenar a chave
-load_dotenv()
-OPEN_AI_KEY:str = os.getenv('API_KEY')
+
+OPEN_AI_KEY = os.getenv('MY_SECRET_KEY')
 client = OpenAI(api_key=OPEN_AI_KEY)
 
 prompt = []
