@@ -16,7 +16,8 @@ def fetch_individual_product_info(product_url): # Devolve dicionário da caracte
 
     # preço é exibido como "$x,xxx.cc" onde c sao centavos - para adequadamente transformar o preço num float removemos o préfixo e a vírgula
     price = float((product_page_soup.find("span", class_="price theme-money").text).removeprefix("$").replace(",",""))
-
+    if price == 0:
+        price = "Out of Stock"
     reviews = product_page_soup.find_all("div",class_="stamped-review") # contem conteudo da avaliacoes
     review_summary = product_page_soup.find_all("div",class_="summary-rating") # contem sumario estatistico da avaliacoes
     if len(reviews) == 0: # Se não existir avaliação, associamos valores default para as características do produto

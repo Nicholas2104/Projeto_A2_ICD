@@ -24,7 +24,7 @@ def create_table(all_product_info, ai_feedback):
 #Decidimos criar essa coluna pois é um indicador bastante influente na compra de um produto
 def cost_efficency_calc(rating,price):
     #Cuidando dos casos em que não existem reviews
-    if rating == "none":
+    if rating == "none" or price == "Out of Stock":
         return "none"
     else:
         return (price//rating)
@@ -37,5 +37,6 @@ def consumer_satisfaction_calc(positive_reviews,total_reviews):
     if positive_reviews == "none":
         return "none"
     else:
-        return (positive_reviews+1)//(total_reviews+2)*100 #retorna a chance em porcentagem do consumidor estar satisfeito com o produto
-    
+        print(int((positive_reviews+1)/(total_reviews+2)*100))
+        return int((positive_reviews+1)/(total_reviews+2)*100) #retorna a chance em porcentagem do consumidor estar satisfeito com o produto
+        
