@@ -9,4 +9,4 @@ if __name__ == "__main__":
     review_sample = collect_sample(all_product_info)
     ai_feedback = generate_feedback(review_sample)
     tabela = criar_tabela(all_product_info,ai_feedback)
-    tabela.to_csv("Raw_Whiskey_Data.csv", index=False)
+    tabela.to_csv("Raw_Whiskey_Data.csv",index=False)
