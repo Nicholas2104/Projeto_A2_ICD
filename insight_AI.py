@@ -1,7 +1,7 @@
 from openai import OpenAI
 """Utiliza Chat-GPT para devolver uma síntese de possíveis problemas e melhorias para cada produto"""
 # Coleta todas as avaliações de 6 produtos amostrais, 3 bem avaliados e 3 não tão bem avaliados, no final devolve uma string como amostra
-def coletar_amostra(all_product_info): # toma como parâmetro as informações dos produtos no site
+def collect_sample(all_product_info): # toma como parâmetro as informações dos produtos no site
     SAMPLE_LIMIT = 6
     well_rated_samples_taken = 0 # contagem de produtos bem avaliados tomados na amostra
     poorly_rated_samples_taken = 0 # contagem de produtos mal avaliados tomados na amostra

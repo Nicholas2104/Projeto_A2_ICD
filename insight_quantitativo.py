@@ -1,6 +1,5 @@
 """Módulo para criar insights quantitativos e criar uma tabela com os dados coletados"""
 import pandas as pd
-import openpyxl as opyxl
 #Precisamos criar uma tabela que contenha os dados coletados no webscrapping e o review gerado pela inteligência artificial
 #Além disso, vamos também características novas a partir dos dados que temos
 
