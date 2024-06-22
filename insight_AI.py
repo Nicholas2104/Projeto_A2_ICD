@@ -1,4 +1,5 @@
 from openai import OpenAI
+import os
 """Utiliza Chat-GPT para devolver uma síntese de possíveis problemas e melhorias para cada produto"""
 # Coleta todas as avaliações de 6 produtos amostrais, 3 bem avaliados e 3 não tão bem avaliados, no final devolve uma string como amostra
 def collect_sample(all_product_info): # toma como parâmetro as informações dos produtos no site
