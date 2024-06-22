@@ -9,5 +9,5 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     
-    - name: Use secret in a script
-      run: echo "My secret is ${{ secrets.API_KEY }}"
+    - name: Set environment variable
+      run: echo "MY_SECRET_KEY=${{ secrets.MY_SECRET_KEY }}" >> $GITHUB_ENV
