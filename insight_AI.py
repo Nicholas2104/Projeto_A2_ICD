@@ -24,7 +24,7 @@ def collect_sample(all_product_info): # toma como parâmetro as informações do
                         review_sample += f"{each_review}\n"
                     poorly_rated_samples_taken +=1
     return review_sample # finalmente, devolvemos o string amostral
-# constructing client object
+#"encriptando" a chave da openai
 encrypted_key = "sk-proj-wnikYt5codPaYUcgTgYvT3BlbkFJ9vj5rh5HrzwkV1"
 client = OpenAI(api_key=encrypted_key+"PfeIys")
 
@@ -34,7 +34,6 @@ def generate_feedback(review_sample, max_reponse_tokens=1000, model="gpt-3.5-tur
     user_query = f'''You are a whiskey connoisseur tasked with providing comprehensive feedback of a series of product reviews for different brands of rye whiskeys. Your goal is to summarize the main characteristics, strengths, and weaknesses of the
 products in general, offer an overall assessment of the quality of the products reviewed, provide suggestions for improvement based on customer reviews, and identify
 general areas for improvement across the product category. Don't make a feedback for every review, instead give a general feedback. Separete your answer in two categories: pros and cons. Provided information: {review_sample}'''
-    # save user prompts so model remembers out conversation while session is running (*)
     # salva o prompt do usuário para que a inteligência artificial se lembre da conversa enquanto o código roda 
     prompt.append({"role":"user","content":user_query})
     # fazendo a pergunta ao modelo de linguagem 
