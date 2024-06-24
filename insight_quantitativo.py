@@ -37,6 +37,5 @@ def consumer_satisfaction_calc(positive_reviews,total_reviews):
     if positive_reviews == "none":
         return "none"
     else:
-        print(int((positive_reviews+1)/(total_reviews+2)*100))
         return int((positive_reviews+1)/(total_reviews+2)*100) #retorna a chance em porcentagem do consumidor estar satisfeito com o produto
         
